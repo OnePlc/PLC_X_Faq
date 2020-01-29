@@ -7,12 +7,9 @@
 
 This is the Book Module for onePlace Software Framework based on Laminas Project (former Zend Framework)
 
-Create your web based apps on the fly! onePlace brings you extended Entity and Table Models,
-View Helpers and much more - so you can build your Webapp to manage database based data, 
-in almost any layout you can image. 
+This modul is based on [oneplace-skeleton](https://github.com/OnePlc/PLC_X_Skeleton) with a few modification to extend its functionality.
 
-onePlace is built for maximum freedom of choice for your app, and so only small
-parts of laminas mvc are utilized. a lot is done from scratch to give you more freedom / customization.
+In the /data folder you will find usefull custom sql scripts for adding all sorts of additional fields for this specific Book module.
 
 ## Book Module
 
@@ -25,6 +22,10 @@ The easiest way to install onePlace Book is via composer
 ```shell script
 composer require oneplace/oneplace-book
 ```
+After installation you can apply a custom sql config.
+ 
+You simply copy the SQL Code from [structure_example_simnple.sql](https://github.com/OnePlc/PLC_X_Book/tree/master/data/structure_example_simnple.sql]) and [data_example_simnple.sql](https://github.com/OnePlc/PLC_X_Book/tree/master/data/data_example_simnple.sql]) and run ist on your database.
+We also prepared a extended version of a custom SQL config for a better demonstaration of its capability.
 
 ## Getting started
 
