@@ -2,9 +2,9 @@
 
 Now that you have basic knowledge of oneplace, we'll show you the easy way to get started.
 
-## Install onePlace Book
+## Install onePlace Blog
 
-The easiest way to get started is to install the book module via
+The easiest way to get started is to install the blog module via
 Composer.
 
 If you have not yet done so, [install Composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
@@ -12,7 +12,7 @@ If you have not yet done so, [install Composer](https://getcomposer.org/doc/00-i
 Go to the directory, where you installed oneplace core and run:
 
 ```bash
-$ composer require oneplace/oneplace-book
+$ composer require oneplace/oneplace-blog
 ```
 
 ![injectmodconfig](https://docs.1plc.ch/img/injectmodule.jpg)

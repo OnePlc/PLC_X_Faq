@@ -1,11 +1,11 @@
 <?php
 /**
- * BookController.php - Main Controller
+ * BlogController.php - Main Controller
  *
- * Main Controller Book Module
+ * Main Controller Blog Module
  *
  * @category Controller
- * @package Book
+ * @package Blog
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -15,33 +15,33 @@
 
 declare(strict_types=1);
 
-namespace OnePlace\Book\Controller;
+namespace OnePlace\Blog\Controller;
 
 use Application\Controller\CoreController;
 use Application\Model\CoreEntityModel;
-use OnePlace\Book\Model\Book;
-use OnePlace\Book\Model\BookTable;
+use OnePlace\Blog\Model\Blog;
+use OnePlace\Blog\Model\BlogTable;
 use Laminas\View\Model\ViewModel;
 use Laminas\Db\Adapter\AdapterInterface;
 
-class BookController extends CoreController {
+class BlogController extends CoreController {
     /**
-     * Book Table Object
+     * Blog Table Object
      *
      * @since 1.0.0
      */
     private $oTableGateway;
 
     /**
-     * BookController constructor.
+     * BlogController constructor.
      *
      * @param AdapterInterface $oDbAdapter
-     * @param BookTable $oTableGateway
+     * @param BlogTable $oTableGateway
      * @since 1.0.0
      */
-    public function __construct(AdapterInterface $oDbAdapter,BookTable $oTableGateway,$oServiceManager) {
+    public function __construct(AdapterInterface $oDbAdapter,BlogTable $oTableGateway,$oServiceManager) {
         $this->oTableGateway = $oTableGateway;
-        $this->sSingleForm = 'book-single';
+        $this->sSingleForm = 'blog-single';
         parent::__construct($oDbAdapter,$oTableGateway,$oServiceManager);
 
         if($oTableGateway) {
@@ -53,20 +53,20 @@ class BookController extends CoreController {
     }
 
     /**
-     * Book Index
+     * Blog Index
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function indexAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('book');
+        $this->setThemeBasedLayout('blog');
 
         # Add Buttons for breadcrumb
-        $this->setViewButtons('book-index');
+        $this->setViewButtons('blog-index');
 
         # Set Table Rows for Index
-        $this->setIndexColumns('book-index');
+        $this->setIndexColumns('blog-index');
 
         # Get Paginator
         $oPaginator = $this->oTableGateway->fetchAll(true);
@@ -77,23 +77,23 @@ class BookController extends CoreController {
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('book-index',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('blog-index',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         return new ViewModel([
-            'sTableName'=>'book-index',
+            'sTableName'=>'blog-index',
             'aItems'=>$oPaginator,
         ]);
     }
 
     /**
-     * Book Add Form
+     * Blog Add Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function addAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('book');
+        $this->setThemeBasedLayout('blog');
 
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
@@ -101,7 +101,7 @@ class BookController extends CoreController {
         # Display Add Form
         if(!$oRequest->isPost()) {
             # Add Buttons for breadcrumb
-            $this->setViewButtons('book-single');
+            $this->setViewButtons('blog-single');
 
             # Load Tabs for View Form
             $this->setViewTabs($this->sSingleForm);
@@ -111,7 +111,7 @@ class BookController extends CoreController {
 
             # Log Performance in DB
             $aMeasureEnd = getrusage();
-            $this->logPerfomance('book-add',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+            $this->logPerfomance('blog-add',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
             return new ViewModel([
                 'sFormName' => $this->sSingleForm,
@@ -122,32 +122,32 @@ class BookController extends CoreController {
         $aFormData = $this->parseFormData($_REQUEST);
 
         # Save Add Form
-        $oBook = new Book($this->oDbAdapter);
-        $oBook->exchangeArray($aFormData);
-        $iBookID = $this->oTableGateway->saveSingle($oBook);
-        $oBook = $this->oTableGateway->getSingle($iBookID);
+        $oBlog = new Blog($this->oDbAdapter);
+        $oBlog->exchangeArray($aFormData);
+        $iBlogID = $this->oTableGateway->saveSingle($oBlog);
+        $oBlog = $this->oTableGateway->getSingle($iBlogID);
 
         # Save Multiselect
-        $this->updateMultiSelectFields($_REQUEST,$oBook,'book-single');
+        $this->updateMultiSelectFields($_REQUEST,$oBlog,'blog-single');
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('book-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('blog-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
-        # Display Success Message and View New Book
-        $this->flashMessenger()->addSuccessMessage('Book successfully created');
-        return $this->redirect()->toRoute('book',['action'=>'view','id'=>$iBookID]);
+        # Display Success Message and View New Blog
+        $this->flashMessenger()->addSuccessMessage('Blog successfully created');
+        return $this->redirect()->toRoute('blog',['action'=>'view','id'=>$iBlogID]);
     }
 
     /**
-     * Book Edit Form
+     * Blog Edit Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function editAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('book');
+        $this->setThemeBasedLayout('blog');
 
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
@@ -155,22 +155,22 @@ class BookController extends CoreController {
         # Display Edit Form
         if(!$oRequest->isPost()) {
 
-            # Get Book ID from URL
-            $iBookID = $this->params()->fromRoute('id', 0);
+            # Get Blog ID from URL
+            $iBlogID = $this->params()->fromRoute('id', 0);
 
-            # Try to get Book
+            # Try to get Blog
             try {
-                $oBook = $this->oTableGateway->getSingle($iBookID);
+                $oBlog = $this->oTableGateway->getSingle($iBlogID);
             } catch (\RuntimeException $e) {
-                echo 'Book Not found';
+                echo 'Blog Not found';
                 return false;
             }
 
-            # Attach Book Entity to Layout
-            $this->setViewEntity($oBook);
+            # Attach Blog Entity to Layout
+            $this->setViewEntity($oBlog);
 
             # Add Buttons for breadcrumb
-            $this->setViewButtons('book-single');
+            $this->setViewButtons('blog-single');
 
             # Load Tabs for View Form
             $this->setViewTabs($this->sSingleForm);
@@ -180,22 +180,22 @@ class BookController extends CoreController {
 
             # Log Performance in DB
             $aMeasureEnd = getrusage();
-            $this->logPerfomance('book-edit',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+            $this->logPerfomance('blog-edit',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
             return new ViewModel([
                 'sFormName' => $this->sSingleForm,
-                'oBook' => $oBook,
+                'oBlog' => $oBlog,
             ]);
         }
 
-        $iBookID = $oRequest->getPost('Item_ID');
-        $oBook = $this->oTableGateway->getSingle($iBookID);
+        $iBlogID = $oRequest->getPost('Item_ID');
+        $oBlog = $this->oTableGateway->getSingle($iBlogID);
 
-        # Update Book with Form Data
-        $oBook = $this->attachFormData($_REQUEST,$oBook);
+        # Update Blog with Form Data
+        $oBlog = $this->attachFormData($_REQUEST,$oBlog);
 
-        # Save Book
-        $iBookID = $this->oTableGateway->saveSingle($oBook);
+        # Save Blog
+        $iBlogID = $this->oTableGateway->saveSingle($oBlog);
 
         $this->layout('layout/json');
 
@@ -203,43 +203,43 @@ class BookController extends CoreController {
         $aFormData = $this->parseFormData($_REQUEST);
 
         # Save Multiselect
-        $this->updateMultiSelectFields($aFormData,$oBook,'book-single');
+        $this->updateMultiSelectFields($aFormData,$oBlog,'blog-single');
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('book-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('blog-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         # Display Success Message and View New User
-        $this->flashMessenger()->addSuccessMessage('Book successfully saved');
-        return $this->redirect()->toRoute('book',['action'=>'view','id'=>$iBookID]);
+        $this->flashMessenger()->addSuccessMessage('Blog successfully saved');
+        return $this->redirect()->toRoute('blog',['action'=>'view','id'=>$iBlogID]);
     }
 
     /**
-     * Book View Form
+     * Blog View Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function viewAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('book');
+        $this->setThemeBasedLayout('blog');
 
-        # Get Book ID from URL
-        $iBookID = $this->params()->fromRoute('id', 0);
+        # Get Blog ID from URL
+        $iBlogID = $this->params()->fromRoute('id', 0);
 
-        # Try to get Book
+        # Try to get Blog
         try {
-            $oBook = $this->oTableGateway->getSingle($iBookID);
+            $oBlog = $this->oTableGateway->getSingle($iBlogID);
         } catch (\RuntimeException $e) {
-            echo 'Book Not found';
+            echo 'Blog Not found';
             return false;
         }
 
-        # Attach Book Entity to Layout
-        $this->setViewEntity($oBook);
+        # Attach Blog Entity to Layout
+        $this->setViewEntity($oBlog);
 
         # Add Buttons for breadcrumb
-        $this->setViewButtons('book-view');
+        $this->setViewButtons('blog-view');
 
         # Load Tabs for View Form
         $this->setViewTabs($this->sSingleForm);
@@ -249,11 +249,11 @@ class BookController extends CoreController {
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('book-view',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('blog-view',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         return new ViewModel([
             'sFormName'=>$this->sSingleForm,
-            'oBook'=>$oBook,
+            'oBlog'=>$oBlog,
         ]);
     }
 }

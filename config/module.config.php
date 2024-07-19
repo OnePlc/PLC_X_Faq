@@ -1,11 +1,11 @@
 <?php
 /**
- * module.config.php - Book Config
+ * module.config.php - Blog Config
  *
- * Main Config File for Book Module
+ * Main Config File for Blog Module
  *
  * @category Config
- * @package Book
+ * @package Blog
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,41 +13,27 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Book;
+namespace OnePlace\Blog;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    # Book Module - Routes
+    # Blog Module - Routes
     'router' => [
         'routes' => [
             # Module Basic Route
-            'book' => [
+            'blog' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/book[/:action[/:id]]',
+                    'route' => '/blog[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\BookController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
-            'book-api' => [
-                'type'    => Segment::class,
-                'options' => [
-                    'route' => '/book/api[/:action[/:id]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ],
-                    'defaults' => [
-                        'controller' => Controller\ApiController::class,
+                        'controller' => Controller\BlogController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -58,7 +44,7 @@ return [
     # View Settings
     'view_manager' => [
         'template_path_stack' => [
-            'book' => __DIR__ . '/../view',
+            'blog' => __DIR__ . '/../view',
         ],
     ],
 ];

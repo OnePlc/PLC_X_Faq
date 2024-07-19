@@ -1,11 +1,11 @@
 <?php
 /**
- * BookTable.php - Book Table
+ * BlogTable.php - Blog Table
  *
- * Table Model for Book
+ * Table Model for Blog
  *
  * @category Model
- * @package Book
+ * @package Blog
  * @author Verein onePlace
  * @copyright (C) 2020 Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,7 +13,7 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Book\Model;
+namespace OnePlace\Blog\Model;
 
 use Application\Controller\CoreController;
 use Application\Model\CoreEntityTable;
@@ -24,10 +24,10 @@ use Laminas\Db\Sql\Where;
 use Laminas\Paginator\Paginator;
 use Laminas\Paginator\Adapter\DbSelect;
 
-class BookTable extends CoreEntityTable {
+class BlogTable extends CoreEntityTable {
 
     /**
-     * BookTable constructor.
+     * BlogTable constructor.
      *
      * @param TableGateway $tableGateway
      * @since 1.0.0
@@ -36,11 +36,11 @@ class BookTable extends CoreEntityTable {
         parent::__construct($tableGateway);
 
         # Set Single Form Name
-        $this->sSingleForm = 'book-single';
+        $this->sSingleForm = 'blog-single';
     }
 
     /**
-     * Fetch All Book Entities based on Filters
+     * Fetch All Blog Entities based on Filters
      *
      * @param bool $bPaginated
      * @param array $aWhere
@@ -67,7 +67,7 @@ class BookTable extends CoreEntityTable {
         if ($bPaginated) {
             # Create result set for user entity
             $resultSetPrototype = new ResultSet();
-            $resultSetPrototype->setArrayObjectPrototype(new Book($this->oTableGateway->getAdapter()));
+            $resultSetPrototype->setArrayObjectPrototype(new Blog($this->oTableGateway->getAdapter()));
 
             # Create a new pagination adapter object
             $oPaginatorAdapter = new DbSelect(
@@ -88,7 +88,7 @@ class BookTable extends CoreEntityTable {
     }
 
     /**
-     * Get Book Entity
+     * Get Blog Entity
      *
      * @param int $id
      * @return mixed
@@ -96,11 +96,11 @@ class BookTable extends CoreEntityTable {
      */
     public function getSingle($id) {
         $id = (int) $id;
-        $rowset = $this->oTableGateway->select(['Book_ID' => $id]);
+        $rowset = $this->oTableGateway->select(['Blog_ID' => $id]);
         $row = $rowset->current();
         if (! $row) {
             throw new \RuntimeException(sprintf(
-                'Could not find book with identifier %d',
+                'Could not find blog with identifier %d',
                 $id
             ));
         }
@@ -109,20 +109,20 @@ class BookTable extends CoreEntityTable {
     }
 
     /**
-     * Save Book Entity
+     * Save Blog Entity
      *
-     * @param Book $oBook
-     * @return int Book ID
+     * @param Blog $oBlog
+     * @return int Blog ID
      * @since 1.0.0
      */
-    public function saveSingle(Book $oBook) {
+    public function saveSingle(Blog $oBlog) {
         $aData = [
-            'label' => $oBook->label,
+            'label' => $oBlog->label,
         ];
 
-        $aData = $this->attachDynamicFields($aData,$oBook);
+        $aData = $this->attachDynamicFields($aData,$oBlog);
 
-        $id = (int) $oBook->id;
+        $id = (int) $oBlog->id;
 
         if ($id === 0) {
             # Add Metadata
@@ -131,19 +131,19 @@ class BookTable extends CoreEntityTable {
             $aData['modified_by'] = CoreController::$oSession->oUser->getID();
             $aData['modified_date'] = date('Y-m-d H:i:s',time());
 
-            # Insert Book
+            # Insert Blog
             $this->oTableGateway->insert($aData);
 
             # Return ID
             return $this->oTableGateway->lastInsertValue;
         }
 
-        # Check if Book Entity already exists
+        # Check if Blog Entity already exists
         try {
             $this->getSingle($id);
         } catch (\RuntimeException $e) {
             throw new \RuntimeException(sprintf(
-                'Cannot update book with identifier %d; does not exist',
+                'Cannot update blog with identifier %d; does not exist',
                 $id
             ));
         }
@@ -152,26 +152,26 @@ class BookTable extends CoreEntityTable {
         $aData['modified_by'] = CoreController::$oSession->oUser->getID();
         $aData['modified_date'] = date('Y-m-d H:i:s',time());
 
-        # Update Book
-        $this->oTableGateway->update($aData, ['Book_ID' => $id]);
+        # Update Blog
+        $this->oTableGateway->update($aData, ['Blog_ID' => $id]);
 
         return $id;
     }
 
     /**
-     * Generate daily stats for book
+     * Generate daily stats for blog
      *
      * @since 1.0.5
      */
     public function generateDailyStats() {
-        # get all books
+        # get all blogs
         $iTotal = count($this->fetchAll(false));
-        # get newly created books
+        # get newly created blogs
         $iNew = count($this->fetchAll(false,['created_date-like'=>date('Y-m-d',time())]));
 
         # add statistics
         CoreController::$aCoreTables['core-statistic']->insert([
-            'stats_key'=>'book-daily',
+            'stats_key'=>'blog-daily',
             'data'=>json_encode(['new'=>$iNew,'total'=>$iTotal]),
             'date'=>date('Y-m-d H:i:s',time()),
         ]);

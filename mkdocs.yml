@@ -1,4 +1,4 @@
-docs_dir: docs/book
+docs_dir: docs/blog
 site_dir: docs/html
 nav:
   - Home: index.md
@@ -7,9 +7,9 @@ nav:
   - 'Dynamic Fields': dynamic-fields.md
   - Tutorials:
     - 'Create Module': create-module.md
-site_name: oneplace-book
-site_description: "onePlace Application Book Module"
-repo_url: 'https://github.com/OnePlc/PLC_X_Book'
+site_name: oneplace-blog
+site_description: "onePlace Application Blog Module"
+repo_url: 'https://github.com/OnePlc/PLC_X_Blog'
 theme: bootstrap4
 extra:
   project: onePlc

@@ -1,8 +1,8 @@
 --
 -- Base Table
 --
-CREATE TABLE `book` (
-  `Book_ID` int(11) NOT NULL,
+CREATE TABLE `blog` (
+  `Blog_ID` int(11) NOT NULL,
   `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_by` int(11) NOT NULL,
   `created_date` datetime NOT NULL,
@@ -10,57 +10,51 @@ CREATE TABLE `book` (
   `modified_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-ALTER TABLE `book`
-  ADD PRIMARY KEY (`Book_ID`);
+ALTER TABLE `blog`
+  ADD PRIMARY KEY (`Blog_ID`);
 
-ALTER TABLE `book`
-  MODIFY `Book_ID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `blog`
+  MODIFY `Blog_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Permissions
 --
 INSERT INTO `permission` (`permission_key`, `module`, `label`, `nav_label`, `nav_href`, `show_in_menu`) VALUES
-('add', 'OnePlace\\Book\\Controller\\BookController', 'Add', '', '', 0),
-('edit', 'OnePlace\\Book\\Controller\\BookController', 'Edit', '', '', 0),
-('index', 'OnePlace\\Book\\Controller\\BookController', 'Index', 'Books', '/book', 1),
-('list', 'OnePlace\\Book\\Controller\\ApiController', 'List', '', '', 1),
-('view', 'OnePlace\\Book\\Controller\\BookController', 'View', '', '', 0);
+('add', 'OnePlace\\Blog\\Controller\\BlogController', 'Add', '', '', 0),
+('edit', 'OnePlace\\Blog\\Controller\\BlogController', 'Edit', '', '', 0),
+('index', 'OnePlace\\Blog\\Controller\\BlogController', 'Index', 'Blogs', '/blog', 1),
+('list', 'OnePlace\\Blog\\Controller\\ApiController', 'List', '', '', 1),
+('view', 'OnePlace\\Blog\\Controller\\BlogController', 'View', '', '', 0);
 
 --
 -- Form
 --
 INSERT INTO `core_form` (`form_key`, `label`, `entity_class`, `entity_tbl_class`) VALUES
-('book-single', 'Book', 'OnePlace\\Book\\Model\\Book', 'OnePlace\\Book\\Model\\BookTable');
+('blog-single', 'Blog', 'OnePlace\\Blog\\Model\\Blog', 'OnePlace\\Blog\\Model\\BlogTable');
 
 --
 -- Index List
 --
 INSERT INTO `core_index_table` (`table_name`, `form`, `label`) VALUES
-('book-index', 'book-single', 'Book Index');
+('blog-index', 'blog-single', 'Blog Index');
 
 --
 -- Tabs
 --
-INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES ('book-base', 'book-single', 'Book', 'Base', 'fas fa-cogs', '', '0', '', '');
+INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `counter`, `sort_id`, `filter_check`, `filter_value`) VALUES ('blog-base', 'blog-single', 'Blog', 'Base', 'fas fa-cogs', '', '0', '', '');
 
 --
 -- Buttons
 --
 INSERT INTO `core_form_button` (`Button_ID`, `label`, `icon`, `title`, `href`, `class`, `append`, `form`, `mode`, `filter_check`, `filter_value`) VALUES
-(NULL, 'Save Book', 'fas fa-save', 'Save Book', '#', 'primary saveForm', '', 'book-single', 'link', '', ''),
-(NULL, 'Edit Book', 'fas fa-edit', 'Edit Book', '/book/edit/##ID##', 'primary', '', 'book-view', 'link', '', ''),
-(NULL, 'Add Book', 'fas fa-plus', 'Add Book', '/book/add', 'primary', '', 'book-index', 'link', '', '');
+(NULL, 'Save Blog', 'fas fa-save', 'Save Blog', '#', 'primary saveForm', '', 'blog-single', 'link', '', ''),
+(NULL, 'Edit Blog', 'fas fa-edit', 'Edit Blog', '/blog/edit/##ID##', 'primary', '', 'blog-view', 'link', '', ''),
+(NULL, 'Add Blog', 'fas fa-plus', 'Add Blog', '/blog/add', 'primary', '', 'blog-index', 'link', '', '');
 
 --
 -- Fields
 --
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_ist`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
-(NULL, 'text', 'Name', 'label', 'book-base', 'book-single', 'col-md-3', '/book/view/##ID##', '', 0, 1, 0, '', '', '');
-
---
--- Default Widgets
---
-INSERT INTO `core_widget` (`Widget_ID`, `widget_name`, `label`, `permission`) VALUES
-(NULL, 'book_dailystats', 'Book - Daily Stats', 'index-Book\\Controller\\BookController');
+(NULL, 'text', 'Name', 'label', 'blog-base', 'blog-single', 'col-md-3', '/blog/view/##ID##', '', 0, 1, 0, '', '', '');
 
 COMMIT;

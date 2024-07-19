@@ -2,10 +2,10 @@
 /**
  * Module.php - Module Class
  *
- * Module Class File for Book Module
+ * Module Class File for Blog Module
  *
  * @category Config
- * @package Book
+ * @package Blog
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,7 +13,7 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Book;
+namespace OnePlace\Blog;
 
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
@@ -48,16 +48,16 @@ class Module {
     public function getServiceConfig() : array {
         return [
             'factories' => [
-                # Book Module - Base Model
-                Model\BookTable::class => function($container) {
-                    $tableGateway = $container->get(Model\BookTableGateway::class);
-                    return new Model\BookTable($tableGateway,$container);
+                # Blog Module - Base Model
+                Model\BlogTable::class => function($container) {
+                    $tableGateway = $container->get(Model\BlogTableGateway::class);
+                    return new Model\BlogTable($tableGateway,$container);
                 },
-                Model\BookTableGateway::class => function ($container) {
+                Model\BlogTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Book($dbAdapter));
-                    return new TableGateway('book', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Blog($dbAdapter));
+                    return new TableGateway('blog', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
@@ -69,19 +69,11 @@ class Module {
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                Controller\BookController::class => function($container) {
+                Controller\BlogController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
-                    return new Controller\BookController(
+                    return new Controller\BlogController(
                         $oDbAdapter,
-                        $container->get(Model\BookTable::class),
-                        $container
-                    );
-                },
-                Controller\ApiController::class => function($container) {
-                    $oDbAdapter = $container->get(AdapterInterface::class);
-                    return new Controller\ApiController(
-                        $oDbAdapter,
-                        $container->get(Model\BookTable::class),
+                        $container->get(Model\BlogTable::class),
                         $container
                     );
                 },

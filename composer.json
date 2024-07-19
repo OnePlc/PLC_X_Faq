@@ -1,12 +1,12 @@
 {
-    "name": "oneplace/oneplace-book",
-    "description": "onePlace Book Module",
+    "name": "oneplace/oneplace-blog",
+    "description": "onePlace Blog Module",
     "type": "oneplace-module",
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mvc",
-        "book",
+        "blog",
         "oneplace",
         "oneplace-module",
         "framework"
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OnePlace\\Book\\": "src/"
+            "OnePlace\\Blog\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OnePlaceTest\\Book\\": "test/"
+            "OnePlaceTest\\Blog\\": "test/"
         }
     },
     "scripts": {
@@ -45,7 +45,7 @@
     },
     "extra": {
         "zf": {
-            "module": "OnePlace\\Book"
+            "module": "OnePlace\\Blog"
         }
     }
 }
