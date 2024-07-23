@@ -1,11 +1,11 @@
 <?php
 /**
- * Blog.php - Blog Entity
+ * Faq.php - Faq Entity
  *
- * Entity Model for Blog
+ * Entity Model for Faq
  *
  * @category Model
- * @package Blog
+ * @package Faq
  * @author Verein onePlace
  * @copyright (C) 2020 Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,15 +13,15 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Blog\Model;
+namespace OnePlace\Faq\Model;
 
 use Application\Model\CoreEntityModel;
 
-class Blog extends CoreEntityModel {
+class Faq extends CoreEntityModel {
     public $label;
 
     /**
-     * Blog constructor.
+     * Faq constructor.
      *
      * @param AdapterInterface $oDbAdapter
      * @since 1.0.0
@@ -30,7 +30,7 @@ class Blog extends CoreEntityModel {
         parent::__construct($oDbAdapter);
 
         # Set Single Form Name
-        $this->sSingleForm = 'blog-single';
+        $this->sSingleForm = 'faq-single';
 
         # Attach Dynamic Fields to Entity Model
         $this->attachDynamicFields();
@@ -43,7 +43,7 @@ class Blog extends CoreEntityModel {
      * @since 1.0.0
      */
     public function exchangeArray(array $aData) {
-        $this->id = !empty($aData['Blog_ID']) ? $aData['Blog_ID'] : 0;
+        $this->id = !empty($aData['Faq_ID']) ? $aData['Faq_ID'] : 0;
         $this->label = !empty($aData['label']) ? $aData['label'] : '';
 
         $this->updateDynamicFields($aData);

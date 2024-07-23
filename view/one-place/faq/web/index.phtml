@@ -1,19 +1,19 @@
 <div class="container">
     <div class="row py-4">
         <div class="col-md-12 p-2">
-            <h1>Blog</h1>
+            <h1>Faq</h1>
         </div>
     </div>
 
-    <?php foreach($aItems as $blog) { ?>
+    <?php foreach($aItems as $faq) { ?>
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <?=$blog->getLabel()?>
+                        <?=$faq->getLabel()?>
                     </div>
                     <div class="card-body">
-                        <img src="/data/blog/<?=$blog->getID()?>/<?=$blog->getTextField('featured_image')?>" style="max-width: 250px" class="img-fluid" /> <?=$blog->getTextField('description')?>
+                        <?=$faq->getTextField('description')?>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,10 @@
-# oneplace-blog
+# oneplace-faq
 
 Building a module in onePlace can be really simple, once you learn a couple of quirks. 
-The goal of this post is to create a blog plugin and introduce you to the basics.
+The goal of this post is to create a faq plugin and introduce you to the basics.
 
-The blog module gives you a starting point for creating any Webbased, data driven
-App you can imagine. Want to manage your Contacts, Articles, Blogs, Albums, Worktimes,
+The faq module gives you a starting point for creating any Webbased, data driven
+App you can imagine. Want to manage your Contacts, Articles, Faqs, Albums, Worktimes,
 Members, whatever you can imagine. 
 
 onePlace gives you the tools to just develop a webapp on the fly based on a database model.
@@ -19,28 +19,28 @@ large forms with dozens, even hundreds of fields but still have a usable and cle
 
 So you will be able the model even the most complex data within onePlace.
 
-So for example you want to manage Blogs. Blog will give you Blogs with "Titles"
-by default. Now you can extend those Blogs by "Date received", "Deadline return", "Current Owner",
+So for example you want to manage Faqs. Faq will give you Faqs with "Titles"
+by default. Now you can extend those Faqs by "Date received", "Deadline return", "Current Owner",
 and so on - all just by the click of a button ! Not a single line of Code is needed.
 
 ## How to add new fields
 
 All you have to do is to run the install sql snippet from your 
-[dynamic fields docs](https://docs.1plc.ch/oneplace-blog/dynamic-fields/) to add your extra field to your blog
+[dynamic fields docs](https://docs.1plc.ch/oneplace-faq/dynamic-fields/) to add your extra field to your faq
 module. 
 
-Here is a small example of how to add a new textfield to blog
+Here is a small example of how to add a new textfield to faq
 
 ```sql
-ALTER TABLE `blog` ADD `lastname` TEXT NOT NULL DEFAULT '' AFTER `label`; 
+ALTER TABLE `faq` ADD `lastname` TEXT NOT NULL DEFAULT '' AFTER `label`; 
 
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_ist`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES 
-(NULL, 'text', 'Lastname', 'lastname', 'blog-base', 'blog-single', 'col-md-3', '', '', '0', '1', '0', '', '', ''); 
+(NULL, 'text', 'Lastname', 'lastname', 'faq-base', 'faq-single', 'col-md-3', '', '', '0', '1', '0', '', '', ''); 
 ```
 
-And done ! Your blog now has a new textfield "Lastname", which can be shown in add form, edit form.
-view template, and index for blogs as index row selectable for users ! also its added to the list
-API of your blog. And this way you can add as many fields of whatever type you like.
+And done ! Your faq now has a new textfield "Lastname", which can be shown in add form, edit form.
+view template, and index for faqs as index row selectable for users ! also its added to the list
+API of your faq. And this way you can add as many fields of whatever type you like.
 
 We have some more advanced examples in the [Examples Section](https://docs.1plc.ch) 
 
@@ -50,7 +50,7 @@ new fields on the fly within the onePlace Admin Interface.
 ## Dynamic Index Pages
 ![Form Generator](https://docs.1plc.ch/img/indexpages.png)
 
-onePlace will create Dynamic Index Pages for your Blog Module. Based on your dynamic
+onePlace will create Dynamic Index Pages for your Faq Module. Based on your dynamic
 form fields, you will be able to set the allowed index columns for each user. the users
 can then sort the index columns by drag & drop for themself.
 
@@ -60,16 +60,16 @@ the default options. the settings are user based.
 As with every other dynamic page, you also have the dynamic button panel where you can
 show custom buttons for every action you like, optionally filtered based on permissions.
 
-## Enhance Blog with own code
+## Enhance Faq with own code
 
-The best of it all - if you like to enhance it, just fork the blog module and implement
+The best of it all - if you like to enhance it, just fork the faq module and implement
 your changes. We gave our best to find a design that allows you to make your customizations
-but still be update compatible with the main blog module.
+but still be update compatible with the main faq module.
 
-There is already over 60 modules based on Blog like Contacts, Articles, Onlineshops, Events,
+There is already over 60 modules based on Faq like Contacts, Articles, Onlineshops, Events,
 Members and many more. 
 
-You can use all the blog compatible plugins for your own module like tags, (categories,states,many more)
+You can use all the faq compatible plugins for your own module like tags, (categories,states,many more)
 Gamification (User Leveling & Achievements), strong whitelist routing for fort knox like security and much more.
 
 Just focus on your business logic and let onePlace do the rest for you.
@@ -77,6 +77,6 @@ Just focus on your business logic and let onePlace do the rest for you.
 Learn more about how to code your own onePlace module with the [Album Tutorial](https://docs.1plc.ch) 
 
 ## Support
- * Issues: [github.com/oneplc/plc_x_blog/issues](https://github.com/oneplc/plc_x_blog/issues)
- * Source: [github.com/oneplc/plc_x_blog/](https://github.com/oneplc/plc_x_blog/)
+ * Issues: [github.com/oneplc/plc_x_faq/issues](https://github.com/oneplc/plc_x_faq/issues)
+ * Source: [github.com/oneplc/plc_x_faq/](https://github.com/oneplc/plc_x_faq/)
  * Telegram Group: [t.me/oneplc](https://t.me/oneplc)

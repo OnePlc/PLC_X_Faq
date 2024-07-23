@@ -1,12 +1,12 @@
 {
-    "name": "oneplace/oneplace-blog",
-    "description": "onePlace Blog Module",
+    "name": "oneplace/oneplace-faq",
+    "description": "onePlace Faq Module",
     "type": "oneplace-module",
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mvc",
-        "blog",
+        "faq",
         "oneplace",
         "oneplace-module",
         "framework"
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OnePlace\\Blog\\": "src/"
+            "OnePlace\\Faq\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OnePlaceTest\\Blog\\": "test/"
+            "OnePlaceTest\\Faq\\": "test/"
         }
     },
     "scripts": {
@@ -45,7 +45,7 @@
     },
     "extra": {
         "zf": {
-            "module": "OnePlace\\Blog"
+            "module": "OnePlace\\Faq"
         }
     }
 }

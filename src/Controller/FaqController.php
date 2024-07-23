@@ -1,11 +1,11 @@
 <?php
 /**
- * BlogController.php - Main Controller
+ * FaqController.php - Main Controller
  *
- * Main Controller Blog Module
+ * Main Controller Faq Module
  *
  * @category Controller
- * @package Blog
+ * @package Faq
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -15,33 +15,33 @@
 
 declare(strict_types=1);
 
-namespace OnePlace\Blog\Controller;
+namespace OnePlace\Faq\Controller;
 
 use Application\Controller\CoreController;
 use Application\Model\CoreEntityModel;
-use OnePlace\Blog\Model\Blog;
-use OnePlace\Blog\Model\BlogTable;
+use OnePlace\Faq\Model\Faq;
+use OnePlace\Faq\Model\FaqTable;
 use Laminas\View\Model\ViewModel;
 use Laminas\Db\Adapter\AdapterInterface;
 
-class BlogController extends CoreController {
+class FaqController extends CoreController {
     /**
-     * Blog Table Object
+     * Faq Table Object
      *
      * @since 1.0.0
      */
     private $oTableGateway;
 
     /**
-     * BlogController constructor.
+     * FaqController constructor.
      *
      * @param AdapterInterface $oDbAdapter
-     * @param BlogTable $oTableGateway
+     * @param FaqTable $oTableGateway
      * @since 1.0.0
      */
-    public function __construct(AdapterInterface $oDbAdapter,BlogTable $oTableGateway,$oServiceManager) {
+    public function __construct(AdapterInterface $oDbAdapter,FaqTable $oTableGateway,$oServiceManager) {
         $this->oTableGateway = $oTableGateway;
-        $this->sSingleForm = 'blog-single';
+        $this->sSingleForm = 'faq-single';
         parent::__construct($oDbAdapter,$oTableGateway,$oServiceManager);
 
         if($oTableGateway) {
@@ -53,20 +53,20 @@ class BlogController extends CoreController {
     }
 
     /**
-     * Blog Index
+     * Faq Index
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function indexAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('blog');
+        $this->setThemeBasedLayout('faq');
 
         # Add Buttons for breadcrumb
-        $this->setViewButtons('blog-index');
+        $this->setViewButtons('faq-index');
 
         # Set Table Rows for Index
-        $this->setIndexColumns('blog-index');
+        $this->setIndexColumns('faq-index');
 
         # Get Paginator
         $oPaginator = $this->oTableGateway->fetchAll(true);
@@ -77,24 +77,24 @@ class BlogController extends CoreController {
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('blog-index',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('faq-index',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         return new ViewModel([
-            'sTableName'=>'blog-index',
+            'sTableName'=>'faq-index',
             'aItems'=>$oPaginator,
-            'sRoute' => 'blog-admin',
+            'sRoute' => 'faq-admin',
         ]);
     }
 
     /**
-     * Blog Add Form
+     * Faq Add Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function addAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('blog');
+        $this->setThemeBasedLayout('faq');
 
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
@@ -102,7 +102,7 @@ class BlogController extends CoreController {
         # Display Add Form
         if(!$oRequest->isPost()) {
             # Add Buttons for breadcrumb
-            $this->setViewButtons('blog-single');
+            $this->setViewButtons('faq-single');
 
             # Load Tabs for View Form
             $this->setViewTabs($this->sSingleForm);
@@ -112,7 +112,7 @@ class BlogController extends CoreController {
 
             # Log Performance in DB
             $aMeasureEnd = getrusage();
-            $this->logPerfomance('blog-add',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+            $this->logPerfomance('faq-add',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
             return new ViewModel([
                 'sFormName' => $this->sSingleForm,
@@ -123,32 +123,32 @@ class BlogController extends CoreController {
         $aFormData = $this->parseFormData($_REQUEST);
 
         # Save Add Form
-        $oBlog = new Blog($this->oDbAdapter);
-        $oBlog->exchangeArray($aFormData);
-        $iBlogID = $this->oTableGateway->saveSingle($oBlog);
-        $oBlog = $this->oTableGateway->getSingle($iBlogID);
+        $oFaq = new Faq($this->oDbAdapter);
+        $oFaq->exchangeArray($aFormData);
+        $iFaqID = $this->oTableGateway->saveSingle($oFaq);
+        $oFaq = $this->oTableGateway->getSingle($iFaqID);
 
         # Save Multiselect
-        $this->updateMultiSelectFields($_REQUEST,$oBlog,'blog-single');
+        $this->updateMultiSelectFields($_REQUEST,$oFaq,'faq-single');
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('blog-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('faq-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
-        # Display Success Message and View New Blog
-        $this->flashMessenger()->addSuccessMessage('Blog successfully created');
-        return $this->redirect()->toRoute('blog',['action'=>'view','id'=>$iBlogID]);
+        # Display Success Message and View New Faq
+        $this->flashMessenger()->addSuccessMessage('Faq successfully created');
+        return $this->redirect()->toRoute('faq',['action'=>'view','id'=>$iFaqID]);
     }
 
     /**
-     * Blog Edit Form
+     * Faq Edit Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function editAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('blog');
+        $this->setThemeBasedLayout('faq');
 
         # Get Request to decide wether to save or display form
         $oRequest = $this->getRequest();
@@ -156,22 +156,22 @@ class BlogController extends CoreController {
         # Display Edit Form
         if(!$oRequest->isPost()) {
 
-            # Get Blog ID from URL
-            $iBlogID = $this->params()->fromRoute('id', 0);
+            # Get Faq ID from URL
+            $iFaqID = $this->params()->fromRoute('id', 0);
 
-            # Try to get Blog
+            # Try to get Faq
             try {
-                $oBlog = $this->oTableGateway->getSingle($iBlogID);
+                $oFaq = $this->oTableGateway->getSingle($iFaqID);
             } catch (\RuntimeException $e) {
-                echo 'Blog Not found';
+                echo 'Faq Not found';
                 return false;
             }
 
-            # Attach Blog Entity to Layout
-            $this->setViewEntity($oBlog);
+            # Attach Faq Entity to Layout
+            $this->setViewEntity($oFaq);
 
             # Add Buttons for breadcrumb
-            $this->setViewButtons('blog-single');
+            $this->setViewButtons('faq-single');
 
             # Load Tabs for View Form
             $this->setViewTabs($this->sSingleForm);
@@ -181,22 +181,22 @@ class BlogController extends CoreController {
 
             # Log Performance in DB
             $aMeasureEnd = getrusage();
-            $this->logPerfomance('blog-edit',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+            $this->logPerfomance('faq-edit',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
             return new ViewModel([
                 'sFormName' => $this->sSingleForm,
-                'oBlog' => $oBlog,
+                'oFaq' => $oFaq,
             ]);
         }
 
-        $iBlogID = $oRequest->getPost('Item_ID');
-        $oBlog = $this->oTableGateway->getSingle($iBlogID);
+        $iFaqID = $oRequest->getPost('Item_ID');
+        $oFaq = $this->oTableGateway->getSingle($iFaqID);
 
-        # Update Blog with Form Data
-        $oBlog = $this->attachFormData($_REQUEST,$oBlog);
+        # Update Faq with Form Data
+        $oFaq = $this->attachFormData($_REQUEST,$oFaq);
 
-        # Save Blog
-        $iBlogID = $this->oTableGateway->saveSingle($oBlog);
+        # Save Faq
+        $iFaqID = $this->oTableGateway->saveSingle($oFaq);
 
         $this->layout('layout/json');
 
@@ -204,43 +204,43 @@ class BlogController extends CoreController {
         $aFormData = $this->parseFormData($_REQUEST);
 
         # Save Multiselect
-        $this->updateMultiSelectFields($aFormData,$oBlog,'blog-single');
+        $this->updateMultiSelectFields($aFormData,$oFaq,'faq-single');
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('blog-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('faq-save',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         # Display Success Message and View New User
-        $this->flashMessenger()->addSuccessMessage('Blog successfully saved');
-        return $this->redirect()->toRoute('blog',['action'=>'view','id'=>$iBlogID]);
+        $this->flashMessenger()->addSuccessMessage('Faq successfully saved');
+        return $this->redirect()->toRoute('faq',['action'=>'view','id'=>$iFaqID]);
     }
 
     /**
-     * Blog View Form
+     * Faq View Form
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller
      */
     public function viewAction() {
         # Set Layout based on users theme
-        $this->setThemeBasedLayout('blog');
+        $this->setThemeBasedLayout('faq');
 
-        # Get Blog ID from URL
-        $iBlogID = $this->params()->fromRoute('id', 0);
+        # Get Faq ID from URL
+        $iFaqID = $this->params()->fromRoute('id', 0);
 
-        # Try to get Blog
+        # Try to get Faq
         try {
-            $oBlog = $this->oTableGateway->getSingle($iBlogID);
+            $oFaq = $this->oTableGateway->getSingle($iFaqID);
         } catch (\RuntimeException $e) {
-            echo 'Blog Not found';
+            echo 'Faq Not found';
             return false;
         }
 
-        # Attach Blog Entity to Layout
-        $this->setViewEntity($oBlog);
+        # Attach Faq Entity to Layout
+        $this->setViewEntity($oFaq);
 
         # Add Buttons for breadcrumb
-        $this->setViewButtons('blog-view');
+        $this->setViewButtons('faq-view');
 
         # Load Tabs for View Form
         $this->setViewTabs($this->sSingleForm);
@@ -250,11 +250,11 @@ class BlogController extends CoreController {
 
         # Log Performance in DB
         $aMeasureEnd = getrusage();
-        $this->logPerfomance('blog-view',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
+        $this->logPerfomance('faq-view',$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"utime"),$this->rutime($aMeasureEnd,CoreController::$aPerfomanceLogStart,"stime"));
 
         return new ViewModel([
             'sFormName'=>$this->sSingleForm,
-            'oBlog'=>$oBlog,
+            'oFaq'=>$oFaq,
         ]);
     }
 }

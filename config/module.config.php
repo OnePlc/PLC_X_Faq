@@ -1,11 +1,11 @@
 <?php
 /**
- * module.config.php - Blog Config
+ * module.config.php - Faq Config
  *
- * Main Config File for Blog Module
+ * Main Config File for Faq Module
  *
  * @category Config
- * @package Blog
+ * @package Faq
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,35 +13,35 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Blog;
+namespace OnePlace\Faq;
 
 use Laminas\Router\Http\Literal;
 use Laminas\Router\Http\Segment;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
-    # Blog Module - Routes
+    # Faq Module - Routes
     'router' => [
         'routes' => [
             # Module Basic Route
-            'blog-admin' => [
+            'faq-admin' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/blog-admin[/:action[/:id]]',
+                    'route' => '/faq-admin[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\BlogController::class,
+                        'controller' => Controller\FaqController::class,
                         'action'     => 'index',
                     ],
                 ],
             ],
-            'blog-web' => [
+            'faq-web' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route' => '/blog[/:action[/:id]]',
+                    'route' => '/faq[/:action[/:id]]',
                     'constraints' => [
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
@@ -58,7 +58,7 @@ return [
     # View Settings
     'view_manager' => [
         'template_path_stack' => [
-            'blog' => __DIR__ . '/../view',
+            'faq' => __DIR__ . '/../view',
         ],
         'template_map' => [
             'layout/web'           => __DIR__ . '/../view/layout/web.phtml',

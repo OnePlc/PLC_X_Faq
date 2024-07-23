@@ -1,11 +1,11 @@
 <?php
 /**
- * BlogController.php - Main Controller
+ * FaqController.php - Main Controller
  *
- * Main Controller Blog Module
+ * Main Controller Faq Module
  *
  * @category Controller
- * @package Blog
+ * @package Faq
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -15,33 +15,32 @@
 
 declare(strict_types=1);
 
-namespace OnePlace\Blog\Controller;
+namespace OnePlace\Faq\Controller;
 
 use Application\Controller\CoreController;
 use Application\Model\CoreEntityModel;
-use OnePlace\Blog\Model\Blog;
-use OnePlace\Blog\Model\BlogTable;
+use OnePlace\Faq\Model\FaqTable;
 use Laminas\View\Model\ViewModel;
 use Laminas\Db\Adapter\AdapterInterface;
 
 class WebController extends CoreController {
     /**
-     * Blog Table Object
+     * Faq Table Object
      *
      * @since 1.0.0
      */
     private $oTableGateway;
 
     /**
-     * BlogController constructor.
+     * FaqController constructor.
      *
      * @param AdapterInterface $oDbAdapter
-     * @param BlogTable $oTableGateway
+     * @param FaqTable $oTableGateway
      * @since 1.0.0
      */
-    public function __construct(AdapterInterface $oDbAdapter,BlogTable $oTableGateway,$oServiceManager) {
+    public function __construct(AdapterInterface $oDbAdapter,FaqTable $oTableGateway,$oServiceManager) {
         $this->oTableGateway = $oTableGateway;
-        $this->sSingleForm = 'blog-single';
+        $this->sSingleForm = 'faq-single';
         parent::__construct($oDbAdapter,$oTableGateway,$oServiceManager);
 
         if($oTableGateway) {
@@ -53,7 +52,7 @@ class WebController extends CoreController {
     }
 
     /**
-     * Blog Index
+     * Faq Index
      *
      * @since 1.0.0
      * @return ViewModel - View Object with Data from Controller

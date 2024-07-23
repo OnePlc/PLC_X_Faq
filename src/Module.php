@@ -2,10 +2,10 @@
 /**
  * Module.php - Module Class
  *
- * Module Class File for Blog Module
+ * Module Class File for Faq Module
  *
  * @category Config
- * @package Blog
+ * @package Faq
  * @author Verein onePlace
  * @copyright (C) 2020  Verein onePlace <admin@1plc.ch>
  * @license https://opensource.org/licenses/BSD-3-Clause
@@ -13,7 +13,7 @@
  * @since 1.0.0
  */
 
-namespace OnePlace\Blog;
+namespace OnePlace\Faq;
 
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\ResultSet\ResultSet;
@@ -48,16 +48,16 @@ class Module {
     public function getServiceConfig() : array {
         return [
             'factories' => [
-                # Blog Module - Base Model
-                Model\BlogTable::class => function($container) {
-                    $tableGateway = $container->get(Model\BlogTableGateway::class);
-                    return new Model\BlogTable($tableGateway,$container);
+                # Faq Module - Base Model
+                Model\FaqTable::class => function($container) {
+                    $tableGateway = $container->get(Model\FaqTableGateway::class);
+                    return new Model\FaqTable($tableGateway,$container);
                 },
-                Model\BlogTableGateway::class => function ($container) {
+                Model\FaqTableGateway::class => function ($container) {
                     $dbAdapter = $container->get(AdapterInterface::class);
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Model\Blog($dbAdapter));
-                    return new TableGateway('blog', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Model\Faq($dbAdapter));
+                    return new TableGateway('faq', $dbAdapter, null, $resultSetPrototype);
                 },
             ],
         ];
@@ -69,11 +69,11 @@ class Module {
     public function getControllerConfig() : array {
         return [
             'factories' => [
-                Controller\BlogController::class => function($container) {
+                Controller\FaqController::class => function($container) {
                     $oDbAdapter = $container->get(AdapterInterface::class);
-                    return new Controller\BlogController(
+                    return new Controller\FaqController(
                         $oDbAdapter,
-                        $container->get(Model\BlogTable::class),
+                        $container->get(Model\FaqTable::class),
                         $container
                     );
                 },
@@ -81,7 +81,7 @@ class Module {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\WebController(
                         $oDbAdapter,
-                        $container->get(Model\BlogTable::class),
+                        $container->get(Model\FaqTable::class),
                         $container
                     );
                 },

@@ -1,10 +1,10 @@
-# Create Module based on blog
+# Create Module based on faq
 
 In this tutorial we'll show you how you can create your 
-own onePlace Module based on Blog.
+own onePlace Module based on Faq.
 
-In this example we gonna make a module called "Blog",
-which allows us to manage our blog library.
+In this example we gonna make a module called "Faq",
+which allows us to manage our faq library.
 
 As onePlace is opensource, and we want to encourage you to 
 also work under an open licence, we will use composer in this
@@ -17,7 +17,7 @@ also at a later point.
 
 ## The bootstrap script
 
-As you can see in `data\createmodulefromblog.ps1` and `data\createmodulefromblog.sh` we are
+As you can see in `data\createmodulefromfaq.ps1` and `data\createmodulefromfaq.sh` we are
 currently working on a bootstrap script, that will do most of the work
 described here for you. 
 
@@ -27,37 +27,37 @@ take a couple of weeks.
 
 ## Getting started (manual process)
 
-So lets start to create our new module "Blog".
+So lets start to create our new module "Faq".
 
-* Go to [https://github.com/OnePlc/PLC_X_Blog/releases](https://github.com/OnePlc/PLC_X_Blog/releases) and download the latest release of oneplace-blog
+* Go to [https://github.com/OnePlc/PLC_X_Faq/releases](https://github.com/OnePlc/PLC_X_Faq/releases) and download the latest release of oneplace-faq
 * Unpack the files to your destination folder
 * Open the project with your desired editor (we recommend [PHPStorm](https://www.jetbrains.com/phpstorm/))
 * Search and Replace within the whole project directory for the following terms (without """)
 
 > (Example) "SearchFor" - "ReplaceWith" (MUST be case-sensitive)
 
-> "Blog" - "Blog"
+> "Faq" - "Faq"
 
-> "blog" - "blog"
+> "faq" - "faq"
 
 * Rename all necessary files and folders
 ```
 .
 +-- src
 |   +-- Controller
-|   |   +-- BlogController.php
+|   |   +-- FaqController.php
 |   +-- Model
-|   |   +-- Blog.php
-|   |   +-- BlogTable.php
+|   |   +-- Faq.php
+|   |   +-- FaqTable.php
 +-- test
 |   +-- Controller
-|   |   +-- BlogControllerTest.php
+|   |   +-- FaqControllerTest.php
 +-- view
 |   +-- layout
-|   |   +-- blog-default.phtml
+|   |   +-- faq-default.phtml
 |   +-- one-place
-|   |   +-- blog
-|   |   |   +-- blog
+|   |   +-- faq
+|   |   |   +-- faq
 |   |   |   |   +-- add.phtml (edit/view/index)
 ```
 * so you will end up with something like
@@ -65,24 +65,24 @@ So lets start to create our new module "Blog".
 .
 +-- src
 |   +-- Controller
-|   |   +-- BlogController.php
+|   |   +-- FaqController.php
 |   +-- Model
-|   |   +-- Blog.php
-|   |   +-- BlogTable.php
+|   |   +-- Faq.php
+|   |   +-- FaqTable.php
 +-- test
 |   +-- Controller
-|   |   +-- BlogControllerTest.php
+|   |   +-- FaqControllerTest.php
 +-- view
 |   +-- layout
-|   |   +-- blog-default.phtml (optional - you can also delete it)
+|   |   +-- faq-default.phtml (optional - you can also delete it)
 |   +-- one-place
-|   |   +-- blog
-|   |   |   +-- blog
+|   |   +-- faq
+|   |   |   +-- faq
 |   |   |   |   +-- add.phtml (edit/view/index)
 
 ```
 
-Done - you finally have a working "Blog" Module for onePlace !
+Done - you finally have a working "Faq" Module for onePlace !
 
 Now, lets see how we can add this module to onePlace
 
@@ -90,16 +90,16 @@ Now, lets see how we can add this module to onePlace
 
 For opensource projects, you can use [packagist.org](https://packagist.org) and [composer](https://getcomposer.org)
 to package and distribute your package. Also composer handles autoloading and integration
-of your new "Blog" module into onePlace.
+of your new "Faq" module into onePlace.
 
-Before you start, check `composer.json` within your "Blog" module directory and 
+Before you start, check `composer.json` within your "Faq" module directory and 
 make all changes you want to the file for publishing (like change name, customize description and so on)
 
 * Publish your module on [github.com](https://github.com) with an open licence
 * Go to [packagist.org](https://packagist.org) and submit your new module
 * Add your new package to oneplace with composer as shown on packagist.org
 
-Your new module is now available in onePlace ! As with Blog, go to /update and perform
-the updates to run your `install.sql` so your module "Blog" is fully installed in onePlace!
+Your new module is now available in onePlace ! As with Faq, go to /update and perform
+the updates to run your `install.sql` so your module "Faq" is fully installed in onePlace!
 
 Congrats and have Fun with your new module
