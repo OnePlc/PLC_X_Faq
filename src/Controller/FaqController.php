@@ -137,7 +137,7 @@ class FaqController extends CoreController {
 
         # Display Success Message and View New Faq
         $this->flashMessenger()->addSuccessMessage('Faq successfully created');
-        return $this->redirect()->toRoute('faq',['action'=>'view','id'=>$iFaqID]);
+        return $this->redirect()->toRoute('faq-admin',['action'=>'view','id'=>$iFaqID]);
     }
 
     /**
@@ -212,7 +212,7 @@ class FaqController extends CoreController {
 
         # Display Success Message and View New User
         $this->flashMessenger()->addSuccessMessage('Faq successfully saved');
-        return $this->redirect()->toRoute('faq',['action'=>'view','id'=>$iFaqID]);
+        return $this->redirect()->toRoute('faq-admin',['action'=>'view','id'=>$iFaqID]);
     }
 
     /**
