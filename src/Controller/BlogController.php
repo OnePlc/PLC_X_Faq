@@ -82,6 +82,7 @@ class BlogController extends CoreController {
         return new ViewModel([
             'sTableName'=>'blog-index',
             'aItems'=>$oPaginator,
+            'sRoute' => 'blog-admin',
         ]);
     }
 

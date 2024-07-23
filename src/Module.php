@@ -77,6 +77,14 @@ class Module {
                         $container
                     );
                 },
+                Controller\WebController::class => function($container) {
+                    $oDbAdapter = $container->get(AdapterInterface::class);
+                    return new Controller\WebController(
+                        $oDbAdapter,
+                        $container->get(Model\BlogTable::class),
+                        $container
+                    );
+                },
             ],
         ];
     }

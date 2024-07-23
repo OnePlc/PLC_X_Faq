@@ -24,7 +24,21 @@ return [
     'router' => [
         'routes' => [
             # Module Basic Route
-            'blog' => [
+            'blog-admin' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/blog-admin[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\BlogController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'blog-web' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route' => '/blog[/:action[/:id]]',
@@ -33,7 +47,7 @@ return [
                         'id'     => '[0-9]+',
                     ],
                     'defaults' => [
-                        'controller' => Controller\BlogController::class,
+                        'controller' => Controller\WebController::class,
                         'action'     => 'index',
                     ],
                 ],
@@ -45,6 +59,9 @@ return [
     'view_manager' => [
         'template_path_stack' => [
             'blog' => __DIR__ . '/../view',
+        ],
+        'template_map' => [
+            'layout/web'           => __DIR__ . '/../view/layout/web.phtml',
         ],
     ],
 ];

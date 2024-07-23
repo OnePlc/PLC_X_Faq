@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row py-4">
+        <div class="col-md-12 p-2">
+            <h1>Blog</h1>
+        </div>
+    </div>
+
+    <?php foreach($aItems as $blog) { ?>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <?=$blog->getLabel()?>
+                    </div>
+                    <div class="card-body">
+                        <img src="/data/blog/<?=$blog->getID()?>/<?=$blog->getTextField('featured_image')?>" style="max-width: 250px" class="img-fluid" /> <?=$blog->getTextField('description')?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } ?>
+
+    <div class="row py-4">
+        <div class="col-md-12 py-4">
+        </div>
+    </div>
+</div>
