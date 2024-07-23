@@ -38,17 +38,26 @@ return [
                     ],
                 ],
             ],
-            'faq-web' => [
-                'type'    => Segment::class,
+            'faq-web-index' => [
+                'type'    => Literal::class,
                 'options' => [
-                    'route' => '/faq[/:action[/:id]]',
-                    'constraints' => [
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
-                    ],
+                    'route' => '/ratgeber',
                     'defaults' => [
                         'controller' => Controller\WebController::class,
                         'action'     => 'index',
+                    ],
+                ],
+            ],
+            'faq-web-show' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/faq[/:name]',
+                    'constraints' => [
+                        'name' => '[a-zA-Z0-9][a-zA-Z0-9_-]*',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\WebController::class,
+                        'action'     => 'show',
                     ],
                 ],
             ],

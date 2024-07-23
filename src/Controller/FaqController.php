@@ -124,6 +124,8 @@ class FaqController extends CoreController {
 
         # Save Add Form
         $oFaq = new Faq($this->oDbAdapter);
+        $pretty = str_replace([' ', 'ä', 'ö', 'ü', 'Ä', 'Ö', 'Ü','+',' & ','&','/','.','?'],['-', 'ae', 'oe', 'ue', 'ae', 'oe', 'ue','','_','_','-','-',''], strtolower($aFormData['label']));
+        $aFormData['url'] = $pretty;
         $oFaq->exchangeArray($aFormData);
         $iFaqID = $this->oTableGateway->saveSingle($oFaq);
         $oFaq = $this->oTableGateway->getSingle($iFaqID);

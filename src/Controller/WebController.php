@@ -73,4 +73,16 @@ class WebController extends CoreController {
             'aItems'=>$oPaginator,
         ]);
     }
+
+    public function showAction()
+    {
+        $this->layout('layout/web');
+        $url = $this->params()->fromRoute('name', '');
+
+        $faq = $this->oTableGateway->getSingleByUrl($url);
+
+        return new ViewModel([
+            'faq'=>$faq,
+        ]);
+    }
 }

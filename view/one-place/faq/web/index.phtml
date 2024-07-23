@@ -1,24 +1,25 @@
 <div class="container">
     <div class="row py-4">
         <div class="col-md-12 p-2">
-            <h1>Faq</h1>
+            <h1>Gebrauchtmaschinen Ratgeber</h1>
         </div>
     </div>
 
-    <?php foreach($aItems as $faq) { ?>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <?=$faq->getLabel()?>
-                    </div>
-                    <div class="card-body">
-                        <?=$faq->getTextField('description')?>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+        <div class="col-12">
+            <ul>
+                <?php
+                foreach($aItems as $faq) {
+                    ?>
+                    <li>
+                        <a href="/faq/<?=$faq->getTextField('url')?>">
+                            <?=$faq->getLabel()?>
+                        </a>
+                    </li>
+                <?php } ?>
+            </ul>
         </div>
-    <?php } ?>
+    </div>
 
     <div class="row py-4">
         <div class="col-md-12 py-4">

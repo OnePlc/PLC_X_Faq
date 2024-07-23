@@ -19,6 +19,7 @@ use Application\Model\CoreEntityModel;
 
 class Faq extends CoreEntityModel {
     public $label;
+    public $url;
 
     /**
      * Faq constructor.
@@ -45,6 +46,7 @@ class Faq extends CoreEntityModel {
     public function exchangeArray(array $aData) {
         $this->id = !empty($aData['Faq_ID']) ? $aData['Faq_ID'] : 0;
         $this->label = !empty($aData['label']) ? $aData['label'] : '';
+        $this->url = !empty($aData['url']) ? $aData['url'] : '';
 
         $this->updateDynamicFields($aData);
     }
