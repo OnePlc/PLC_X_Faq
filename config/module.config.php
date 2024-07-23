@@ -60,8 +60,5 @@ return [
         'template_path_stack' => [
             'faq' => __DIR__ . '/../view',
         ],
-        'template_map' => [
-            'layout/web'           => __DIR__ . '/../view/layout/web.phtml',
-        ],
     ],
 ];
